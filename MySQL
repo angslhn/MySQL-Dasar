@@ -1,0 +1,190 @@
+🔢 Data Type Paling Umum
+
+1. Angka (Numeric)
+- INT	              Bilangan bulat, umum digunakan untuk ID atau counter
+- TINYINT	          Bilangan bulat kecil (sering dipakai untuk boolean: 0/1)
+- BIGINT	          Bilangan bulat besar
+- DECIMAL(M,D)	    Angka dengan presisi tetap (misalnya untuk keuangan)
+- FLOAT, DOUBLE	    Angka desimal dengan presisi mengambang
+
+2. Teks (String)
+- VARCHAR(n)	      Teks dengan panjang variabel, maksimal 65,535 karakter
+- CHAR(n)	          Teks dengan panjang tetap
+- TEXT	            Teks panjang (hingga 65,535 karakter)
+- ENUM(...)	        Daftar pilihan tetap (cocok untuk status, kategori, dsb)
+
+3. Tanggal & Waktu
+- DATE	            Format: YYYY-MM-DD
+- DATETIME	        Format: YYYY-MM-DD HH:MM:SS
+- TIMESTAMP	        Sama seperti DATETIME, tapi auto-update
+- TIME	            Format: HH:MM:SS
+
+🧷 Property/Atribut Paling Umum
+- NOT NULL	                    Kolom tidak boleh bernilai NULL
+- DEFAULT	                      Nilai default jika tidak diisi
+- AUTO_INCREMENT	              Untuk membuat nilai otomatis bertambah (biasanya untuk ID)
+- PRIMARY KEY	                  Kolom yang jadi identitas unik dan index utama
+- UNIQUE	                      Harus bernilai unik, tapi bukan primary
+- INDEX	                        Membuat pencarian jadi lebih cepat
+- FOREIGN KEY	                  Hubungan dengan kolom di tabel lain (relasi antar tabel)
+- ON UPDATE CURRENT_TIMESTAMP	  Auto-update waktu saat data diubah
+
+// Masuk ke MySQL Via Console.
+- mysql -u <nama-user> -p
+
+// Clear Console MySQL.
+- system cls
+
+// Buat Database.
+- CREATE DATABASE <nama-database>;
+
+// Menghapus Database.
+- DROP DATABASE <nama-database>;
+
+// Backup Database.
+- BACKUP DATABASE <nama-database> TO DISK = 'Path...';
+
+// Lihat Database.
+- SHOW DATABASES;
+
+// Masuk ke Database Tertentu.
+- USE <nama-database>;
+
+// Lihat Semua Tabel Di Dalam Database.
+- SHOW TABLES;
+
+// Contoh Membuat Tabel.
+- CREATE TABLE <nama-tabel> 
+	( 
+		ID INT NOT NULL PRIMARY KEY,
+    Fullname VARCHAR(75) NOT NULL,
+		Username VARCHAR(55) NOT NULL UNIQUE, 
+		Email VARCHAR(75) NOT NULL UNIQUE, 
+		Password VARCHAR(100) NOT NULL,
+		CreateAt DATETIME DEFAULT CURRENT_TIMESTAMP, 
+		UpdatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP 
+	);
+
+// Melihat Struktur Kolom.
+- DESCRIBE <nama-tabel>;
+
+// Mengubah Nama Tabel
+- RENAME TABLE <nama-tabel-lama> TO <nama-tabel-baru>;
+
+// Menghapus Tabel.
+- DROP TABLE <nama-tabel>;
+
+// Menambahkan Kolom.
+- ALTER TABLE <nama-tabel> ADD <nama-kolom> <tipe-kolom-baru>; 
+
+// Mengubah Tipe Salah Satu Kolom.
+- ALTER TABLE <nama-tabel> MODIFY COLUMN <nama-kolom> <tipe-kolom-baru>;
+
+// Mengubah Nama dan Tipe Salah Satu Kolom.
+- ALTER TABLE <nama-tabel> CHANGE COLUMN <nama-kolom-lama> <nama-kolom-baru> <tipe-kolom-baru>;
+
+// Mengubah Nama dan Tipe Banyak Kolom Sekaligus.
+- ALTER TABLE <nama-tabel> CHANGE COLUMN <nama-kolom-lama> <nama-kolom-baru> <tipe-kolom-baru>
+			   			   CHANGE COLUMN <nama-kolom-lama> <nama-kolom-baru> <tipe-kolom-baru>;
+
+// Menampilkan Semua Isi Kolom Tabel.
+- SELECT * FROM <nama-tabel>;
+
+// Menghapus Kolom Di Dalam Tabel
+- ALTER TABLE <nama-tabel> DROP COLUMN <nama-kolom>;
+
+// Menampilkan Isi Kolom Tabel Berdasarkan Kondisi.
+- SELECT * FROM Users WHERE CreatedAt = '2025-04-07' ;
+
+// Menampilkan Beberapa Isi Kolom Tertentu Tabel.
+- SELECT <nama-kolom>, <nama-kolom> FROM <nama-tabel>;
+
+// Menambahkan Data Kedalam Tabel.
+- INSERT INTO table_name (kolom1, kolom2, kolom3, ...)
+  VALUES (data1, data2, data3, ...); 
+
+// Menampilkan Isi Tabel Berdasarkan Kondisi Tertentu.
+- SELECT * FROM Users WHERE CreatedAt >= '2025-04-01 18:00:00';
+
+// Menampilkan Isi Tabel Dan Mengurutkannya.
+- SELECT * FROM Users ORDER BY Username ASC;  // Urutan dari yang terkecil ke terbesar, atau dari A ke Z untuk teks.
+- SELECT * FROM Users ORDER BY Username DESC; // Urutan dari yang terbesar ke terkecil, atau dari Z ke A untuk teks.
+
+// Menampilkan Isi Tabel Menggunakan Kondisi Dengan AND.
+- SELECT * FROM Users WHERE  = 'Jakarta' AND  Status = 'Online';
+
+// Menampilkan Isi Tabel Menggunakan Kondisi Dengan OR.
+- SELECT * FROM Users WHERE City = 'Jakarta' OR City = 'Bandung';
+
+// Menampilkan Isi Tabel Menggunakan Kondisi Dengan NOT.
+- SELECT * FROM Users WHERE NOT Status = 'Online'
+
+// Menampilkan Isi Tabel Menggunakan Kondisi Dengan OR Dan AND.
+- SELECT * FROM Users WHERE (City = 'Jakarta' OR City = 'Bandung') AND Status = 'Online';
+
+// Menampilkan Isi Tabel Menggunakan Kondisi Dengan NOT Dan AND.
+- SELECT * FROM Users WHERE NOT City = 'Jakarta' AND Status = 'Offline';
+
+// Memperbarui Isi Data Di Dalam Kolom Tabel.
+- UPDATE Users SET Username = 'mamat.supratman', Password = 'MamatGantengBanget' WHERE ID = 1; // Wajib Menggunakan Where jika tidak akan mengubah semua baris di tabel!
+
+// Menghapus Isi Data Di Dalam Kolom Tabel
+- DELETE FROM Users;
+
+// Menghapus Isi Data Di Dalam Kolom Tabel Berdasarkan Kondisi.
+- DELETE FROM Users WHERE ID = 3;
+
+// Menghapus Isi Data Di Dalam Kolom Tabel Dan Me-Reset AUTO_INCREMENT
+- TRUNCATE TABLE Users;
+
+// Mencari Nilai Tertinggi.
+- SELECT MAX(Price) FROM Products; 
+
+// Mencari Nilai Terendah.
+- SELECT MIN(Price) FROM Products;
+
+// Mengetahui Jumlah Data Di Dalam Tabel.
+- SELECT COUNT(*) FROM Users;
+
+// Menjumlah Semua Data Pada Kolom Tertentu Di Dalam Tabel.
+- SELECT SUM(Quantity) FROM OrderDetails;
+
+// Mencari Nilai Rata-Rata Pada Kolom Di Dalam Tabel.
+- SELECT AVG(Price) FROM Products;
+
+// Mencari Data Di Dalam Kolom Berdasarkan Value Pencarian Tertentu.
+- SELECT * FROM Users WHERE Username LIKE 'mamat%';
+
+// Mencari Data Di Dalam Kolom Dengan Kondisi Beberapa Value Seperti OR.
+- SELECT * FROM Customers WHERE Country IN ('Germany', 'France', 'UK');
+
+// Mencari Data Di Dalam Kolom Dengan Jarak Tertentu
+- SELECT * FROM Users WHERE CreatedAt BETWEEN '2024-01-01 00:00:00' AND '2024-01-31 23:59:59';
+
+// Mengambil Data Yang Memiliki Kecocokan Di Kedua Tabel.
+- SELECT Customers.name, Orders.product FROM Customers 
+  INNER JOIN
+  Orders ON Customers.customer_id = Orders.customer_id;
+
+// Mengambil Semua Data Dari Tabel Kiri (Customers) Dan Data Yang Cocok Dari Tabel Kanan (Orders). Jika Tidak Ada Kecocokan, Hasil Tabel Kanan Akan NULL.
+- SELECT Customers.name, Orders.product FROM Customers 
+  LEFT JOIN 
+  Orders ON Customers.customer_id = Orders.customer_id;
+
+// Mengambil Semua Data Dari Tabel Kanan Dan Yang Cocok Dari Kiri.
+- SELECT Customers.name, Orders.product FROM Customers 
+  RIGHT JOIN 
+  Orders ON Customers.customer_id = Orders.customer_id;
+
+// Menggabungkan Data Pelanggan Dari Dua Wilayah Tanpa Duplikat.
+- SELECT name, country FROM Customers_EU 
+  UNION 
+  SELECT name, country FROM Customers_US;
+
+// Menggabungkan Data Pelanggan Dari Dua Wilayah Dengan Duplikat.
+- SELECT name, country FROM Customers_EU 
+  UNION ALL
+  SELECT name, country FROM Customers_US;
+
+// Mengambil Data Tetapi Di Batasi
+  SELECT * FROM Users WHERE CreateAt <= '2025-04-1' LIMIT 1
